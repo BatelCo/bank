@@ -1,0 +1,18 @@
+
+/* batel */
+#main-links > a{
+    margin: 10px;
+    color: #000596;
+    text-shadow: 1px 0 #ecf0f1;
+    font-weight:bold;
+}
+
+*{
+    text-decoration: none;
+    font-family: 'Bungee'
+}
+
+a{
+    cursor: pointer;
+    color: black;
+}
