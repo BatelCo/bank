@@ -2,6 +2,7 @@ import "./App.css"
 import React, {useState, useEffect} from "react"
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import Transactions from "./components/Transactions/Transactions"
+import Breakdown from "./components/Breakdown/Breakdown"
 
 function App() {
 
@@ -44,7 +45,7 @@ function App() {
 				/>
 				<Route
 					exact path="/breakdown"
-					render={() => <div>breakdown</div>}
+					render={() => <Breakdown/>}
 				/>
 			</div>
 		)
