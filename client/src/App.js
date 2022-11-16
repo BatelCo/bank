@@ -1,6 +1,7 @@
 import "./App.css"
 import React, {useState, useEffect} from "react"
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
+import Transactions from "./components/Transactions/Transactions"
 
 function App() {
 
@@ -35,7 +36,7 @@ function App() {
 			<div className="routs-container">
 				<Route
 					exact path="/"
-					render={() => <div>Transactions</div>}
+					render={() => <Transactions/>}
 				/>
 				<Route
 					exact path="/operations"
