@@ -14,3 +14,7 @@ a{
     cursor: pointer;
     color: black;
 }
+
+#balance{
+    float:right;
+}
