@@ -6,7 +6,7 @@ export default function Transaction(props) {
     //     props.deleteTransaction(props.transaction.id, props.transaction.amount)
     // }
     return (
-        <div className="transaction">
+        <div className="transaction" key={props.transaction.id}>
             <span className="font-effect-shadow-multiple">{props.transaction.amount} </span>
             <span className="font-effect-shadow-multiple">{props.transaction.category} </span>
             <span className="font-effect-shadow-multiple">{props.transaction.vendor} </span>
