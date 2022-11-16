@@ -1,19 +1,26 @@
 import "./App.css"
+import React, {useState, useEffect} from "react"
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
-import React, { Component } from "react"
 
-class App extends Component {
-	constructor() {
-		super()
-		this.state = {}
+function App() {
+
+	const [balance, setBalance] = useState(0)
+
+	const updateBalance = (delta, operation)=>{
+		let newBalance;
+		if(operation == "add"){
+		    newBalance = balance + parseFloat(delta)
+		}
+		else{
+		    newBalance = balance - parseFloat(delta)
+		}
+		setBalance(newBalance)
 	}
 
-	getBalanceElement = () => <div id="balance">balance:10</div>
-	getTransactionsPage = () => <div>Transactions</div>
-	getOperationsPage = () => <div>Operations</div>
-	getBreakdownPage = () => <div>breakdown</div>
+	const getBalanceElement = () => <div id="balance">balance : 10</div>
 
-	getFooterLinks = () => {
+
+	const getHeaderLinks = () => {
 		return (
 			<div id="main-links">
 				<Link to="/">Transactions</Link>
@@ -23,41 +30,36 @@ class App extends Component {
 		)
 	}
 
-	getAppRoutes = () => {
+	const getAppRoutes = () => {
 		return (
 			<div className="routs-container">
 				<Route
-					exact
-					path="/"
-					render={() => this.getTransactionsPage()}
+					exact path="/"
+					render={() => <div>Transactions</div>}
 				/>
 				<Route
-					exact
-					path="/operations"
-					render={() => this.getOperationsPage()}
+					exact path="/operations"
+					render={() => <div>Operations</div>}
 				/>
 				<Route
-					exact
-					path="/breakdown"
-					render={() => this.getBreakdownPage()}
+					exact path="/breakdown"
+					render={() => <div>breakdown</div>}
 				/>
 			</div>
 		)
 	}
 
-	render() {
-		return (
-			<Router>
-				<div className="App">
-					<div className="footer">
-						{this.getFooterLinks()}
-						{this.getBalanceElement()}
-					</div>
-					<div id="bank-interface">{this.getAppRoutes()}</div>
+	return (
+		<Router>
+			<div className="App">
+				<div className="header">
+					{getHeaderLinks()}
+					{getBalanceElement()}
 				</div>
-			</Router>
-		)
-	}
+				<div id="bank-interface">{getAppRoutes()}</div>
+			</div>
+		</Router>
+	)
+	
 }
-
-export default App
+export default App;
