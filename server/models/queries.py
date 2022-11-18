@@ -1,20 +1,20 @@
 all_transactions = """
                    SELECT *
-                   From transactions
+                   From transactions;
                    """
 
 insert_transaction =    """
-                           INSERT into transactions (amount,category,vendor) 
-                           values (%f,%s,%s)
-                           """
+                        INSERT into transactions (amount,category,vendor) 
+                        values (%s,%s,%s);
+                        """
                         
 delete_transaction =    """
-                            DELETE FROM transactions 
-                            WHERE id = %s
-                            """
+                        DELETE FROM transactions 
+                        WHERE id = '%s' LIMIT 1;
+                        """
 
 breakdown_by_category = """
-                            SELECT transactions.category , SUM(transactions.amount) AS total_amount
-                            From transactions
-                            GROUP BY transactions.category
-                            """    
+                        SELECT transactions.category , SUM(transactions.amount) AS total_amount
+                        From transactions
+                        GROUP BY transactions.category;
+                        """    
