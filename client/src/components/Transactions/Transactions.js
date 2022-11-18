@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useState, useEffect } from 'react'
 import Transaction from '../Transaction/Transaction';
 import axios from 'axios';
@@ -7,10 +7,10 @@ export default function Transactions() {
   const [transactions, setTransactions] = useState([])
 
   useEffect(() => {
-    fetchTransactions() 
+    loadTransactions() 
   },[])
   
-  async function fetchTransactions(){
+  async function loadTransactions(){
     let promise= await axios.get("http://localhost:8000/transactions")
     let new_transactions = promise.data.transactions
     setTransactions(new_transactions) 
