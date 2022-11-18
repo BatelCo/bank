@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useState, useEffect } from 'react'
 import BreakdownItem from '../BreakdownItem/BreakdownItem';
 import axios from 'axios';
@@ -7,14 +7,12 @@ export default function Breakdown() {
   const [breakdown, setBreakdown] = useState([])
 
   useEffect(() => {
-    fetchBreakdown() 
+    loadBreakdown() 
   },[])
   
-  async function fetchBreakdown(){
+  async function loadBreakdown(){
     let promise= await axios.get("http://localhost:8000/breakdown")
     let new_braekdown = promise.data.breakdown
-    console.log(new_braekdown)
-
     setBreakdown(new_braekdown) 
   }
   
