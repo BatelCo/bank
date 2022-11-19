@@ -10,15 +10,21 @@ export default function Transactions() {
     loadTransactions() 
   },[])
   
+async function deleteTransaction(id){
+    await axios.delete(`http://localhost:8000/transactions/${id}`)
+    loadTransactions() 
+  }
+
   async function loadTransactions(){
     let promise= await axios.get("http://localhost:8000/transactions")
-    let new_transactions = promise.data.transactions
-    setTransactions(new_transactions) 
+    let newTransactions = promise.data.transactions
+    setTransactions(newTransactions) 
+    console.log(transactions)
   }
   
   return (
     <div className='transactions-board'>{transactions.map(transaction =>
-         <Transaction key={transaction.id} transaction={transaction}/>)}
+         <Transaction key={transaction.id} transaction={transaction} deleteTransaction={deleteTransaction}/>)}
     </div>
   )
 }

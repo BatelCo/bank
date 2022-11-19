@@ -1,17 +1,21 @@
 import React from 'react';
 import "./Transaction.css"
+import axios from 'axios';
 
 export default function Transaction(props) {
-    // const deleteTransaction=()=>{
-    //     props.deleteTransaction(props.transaction.id, props.transaction.amount)
-    // }
+    const deleteTransaction=()=>{
+        console.log(props)
+        props.deleteTransaction(props.transaction.id)
+      }
+
+
     return (
         <div className="transaction" key={props.transaction.id}>
-            <span className="font-effect-shadow-multiple">{props.transaction.amount} </span>
-            <span className="font-effect-shadow-multiple">{props.transaction.category} </span>
-            <span className="font-effect-shadow-multiple">{props.transaction.vendor} </span>
+            <span >{props.transaction.amount} </span>
+            <span >{props.transaction.category} </span>
+            <span >{props.transaction.vendor} </span>
             <span>
-            {/* <button className='deleteButton' onClick={deleteTransaction}>X</button> */}
+            <button className='deleteButton' onClick={deleteTransaction}> delete </button>
             </span>
         </div>
   )

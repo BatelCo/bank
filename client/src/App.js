@@ -3,10 +3,11 @@ import React, {useState, useEffect} from "react"
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import Transactions from "./components/Transactions/Transactions"
 import Breakdown from "./components/Breakdown/Breakdown"
+import axios from 'axios';
 
 function App() {
-
 	const [balance, setBalance] = useState(0)
+
 
 	const updateBalance = (delta, operation)=>{
 		let newBalance;
