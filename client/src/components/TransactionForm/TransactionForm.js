@@ -2,11 +2,12 @@ import React, {useState, useEffect} from 'react';
 import "./TransactionForm.css"
 import axios from 'axios';
 import constants from '../../constants';
+import { BankApi } from '../../data/BankApi';
 
 export default function TransactionForm(props) {
     const [transactionInputs, setTransactionInputs] = useState({amountInput:"", categoryInput:"", vendorInput:""})
 
-    const handleChange = e =>{
+    const handleChange = e => {
         let newTransactionInputs={...transactionInputs}
         newTransactionInputs[e.target.name] = e.target.value
         console.log(newTransactionInputs)
@@ -14,11 +15,10 @@ export default function TransactionForm(props) {
     }
 
     async function insertTransaction(sign){
-        console.log(sign)
-        await axios.post(`http://localhost:8000/transactions`,
-        {amount: (sign == "-") ? -transactionInputs.amountInput : transactionInputs.amountInput,
+        let transactionInputData = {amount: (sign == "-") ? -transactionInputs.amountInput : transactionInputs.amountInput,
         category: transactionInputs.categoryInput,
-        vendor: transactionInputs.vendorInput});
+        vendor: transactionInputs.vendorInput}
+        await BankApi().insertTransaction(transactionInputData)
     }
 
     const updateBalance=()=>{
