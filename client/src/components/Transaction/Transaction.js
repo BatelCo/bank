@@ -1,6 +1,5 @@
 import React from 'react';
 import "./Transaction.css"
-import axios from 'axios';
 
 export default function Transaction(props) {
     const deleteTransaction=()=>{
@@ -11,11 +10,13 @@ export default function Transaction(props) {
 
     return (
         <div className="transaction" key={props.transaction.id}>
-            <span >{props.transaction.amount} </span>
-            <span >{props.transaction.category} </span>
-            <span >{props.transaction.vendor} </span>
+            <span className='category'>{props.transaction.category} | </span>
+            <span className='vendor'>{props.transaction.vendor} </span>
+            <span className='amount'>| {props.transaction.amount}₪</span>
             <span>
-            <button className='deleteButton' onClick={deleteTransaction}> delete </button>
+                <button className="delete-btn" onClick={deleteTransaction}>
+                <span>Delete</span> 
+                </button>
             </span>
         </div>
   )
