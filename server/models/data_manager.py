@@ -28,9 +28,21 @@ class DataManager():
 
     def get_breakdown_from_db(self):
         try:
+            self.connection = pymysql.connect(
+                host='localhost',
+                user='root',
+                password="",
+                db="bank_app",
+                charset="utf8",
+                cursorclass=pymysql.cursors.DictCursor
+                )
+        except pymysql.Error as e:
+            print("Error connecting to MySQL", e)
+        try:
             with self.connection.cursor() as cursor:
                 cursor.execute(queries.breakdown_by_category)
                 result = cursor.fetchall()
+                print(result)
                 return result
         except pymysql.Error as e:
             raise e
@@ -39,6 +51,14 @@ class DataManager():
         try:
             with self.connection.cursor() as cursor:
                 cursor.execute(queries.delete_transaction, [id])
+                self.connection.commit()
+        except pymysql.Error as e:
+            raise e
+
+    def add_transaction(self, amount, category, vendor):
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execute(queries.add_transaction, (amount, category, vendor))
                 self.connection.commit()
         except pymysql.Error as e:
             raise e
