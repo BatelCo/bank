@@ -3,7 +3,12 @@ import React, {useState, useEffect} from "react"
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import Transactions from "./components/Transactions/Transactions"
 import Breakdown from "./components/Breakdown/Breakdown"
+import Header from "./components/Header/Header"
+import Balance from "./components/Balance/Balance"
+import NavBar from "./components/NavBar/NavBar"
+
 import axios from 'axios';
+import Operations from "./components/Operations/Operations"
 
 function App() {
 	const [balance, setBalance] = useState(0)
@@ -11,7 +16,7 @@ function App() {
 
 	const updateBalance = (delta, operation)=>{
 		let newBalance;
-		if(operation == "add"){
+		if(operation == "+"){
 		    newBalance = balance + parseFloat(delta)
 		}
 		else{
@@ -19,9 +24,6 @@ function App() {
 		}
 		setBalance(newBalance)
 	}
-
-	const getBalanceElement = () => <div id="balance">balance : 10</div>
-
 
 	const getHeaderLinks = () => {
 		return (
@@ -42,7 +44,7 @@ function App() {
 				/>
 				<Route
 					exact path="/operations"
-					render={() => <div>Operations</div>}
+					render={() => <Operations/>}
 				/>
 				<Route
 					exact path="/breakdown"
@@ -55,10 +57,12 @@ function App() {
 	return (
 		<Router>
 			<div className="App">
-				<div className="header">
+				{/* <div className="header"> */}
 					{getHeaderLinks()}
-					{getBalanceElement()}
-				</div>
+					{/* <NavBar/> */}
+					<Balance balance={balance}/>
+				{/* </div> */}
+				
 				<div id="bank-interface">{getAppRoutes()}</div>
 			</div>
 		</Router>
