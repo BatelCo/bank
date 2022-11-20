@@ -1,5 +1,10 @@
 const routersConstants = {
-        'BREAKDOWN' : "http://localhost:8000/breakdown",
-        'TRANSACTIONS': "http://localhost:8000/transactions"
+        'BREAKDOWN_API' : "http://localhost:8000/breakdown",
+        'TRANSACTIONS_API': "http://localhost:8000/transactions"
 }
-export default routersConstants;
+
+const signConstants = {
+        'MINUS' : "-",
+        "PLUS" : "+"
+}
+export default {routersConstants, signConstants};
