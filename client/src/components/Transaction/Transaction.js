@@ -3,8 +3,7 @@ import "./Transaction.css"
 
 export default function Transaction(props) {
     const deleteTransaction=()=>{
-        console.log(props)
-        props.deleteTransaction(props.transaction.id)
+        props.deleteTransaction(props.transaction.id, props.transaction.amount)
       }
 
 
