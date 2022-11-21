@@ -17,8 +17,8 @@ export default function Breakdown() {
   }
 
   return (
-      <div className='breakdown-board'>{breakdown.map(breakdownItem =>
-          <BreakdownItem breakdownItem={breakdownItem}/>)}
+      <div className='breakdown-board'>{breakdown.map((breakdownItem, index) =>
+          <BreakdownItem key={index} breakdownItem={breakdownItem}/>)}
       </div>
   )
 }
