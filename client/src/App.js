@@ -5,8 +5,6 @@ import Transactions from "./components/Transactions/Transactions"
 import Operations from "./components/Operations/Operations"
 import Breakdown from "./components/Breakdown/Breakdown"
 import Balance from "./components/Balance/Balance"
-// import Header from "./components/Header/Header"
-// import NavBar from "./components/NavBar/NavBar"
 import { BankApi } from "./data/BankApi"
 
 function App() {
@@ -23,11 +21,9 @@ function App() {
 	}
 
 	const updateBalance = async (valueToUpdate)=>{
-		console.log(valueToUpdate)
 		await BankApi().updateBalance(valueToUpdate)
 		const balanceRes = await BankApi().getBalance()
 		const newBalance = balanceRes.data.balance[0].amount
-		console.log("new"+newBalance)
 		setBalance(newBalance)
 	}
 
@@ -62,13 +58,9 @@ function App() {
 
 	return (
 		<Router>
-			<div className="App">
-				{/* <div className="header"> */}
+			<div className="app">
 					{getHeaderLinks()}
-					{/* <NavBar/> */}
-					<Balance balance={balance} />
-				{/* </div> */}
-				
+					<Balance balance={balance} />				
 				<div id="bank-interface">{getAppRoutes()}</div>
 			</div>
 		</Router>
