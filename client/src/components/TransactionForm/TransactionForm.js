@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import "./TransactionForm.css"
-import axios from 'axios';
 import constants from '../../constants';
 import { BankApi } from '../../data/BankApi';
 
@@ -14,21 +13,22 @@ export default function TransactionForm(props) {
     }
 
     async function insertTransaction(sign){
-        let transactionInputData = {amount: (sign == constants.signConstants.MINUS) ? -transactionInputs.amountInput : transactionInputs.amountInput,
+        let transactionInputData = {amount: (sign === constants.signConstants.MINUS) ? -transactionInputs.amountInput : parseInt(transactionInputs.amountInput),
                                     category: transactionInputs.categoryInput,
                                     vendor: transactionInputs.vendorInput}
         await BankApi().insertTransaction(transactionInputData)
+        console.log(transactionInputData.amount)
         props.updateBalance(transactionInputData.amount)
     }
 
-    const validInput=()=>{
-        if (transactionInputs.amountInput > 0 && transactionInputs.categoryInput != "" && transactionInputs.vendorInput != ""){
+    const validInput = ()=>{
+        if (transactionInputs.amountInput > 0 && transactionInputs.categoryInput !== "" && transactionInputs.vendorInput != ""){
             return true
         }
         return false
     }
 
-    const addTransaction= (sign) =>{
+    const addTransaction = (sign) =>{
         if (validInput()){
             insertTransaction(sign)
         }
@@ -44,8 +44,8 @@ export default function TransactionForm(props) {
             <input className="inputform" min='0' onChange={handleChange} placeholder='amount' name="amountInput" type="number"></input>
             <input className="inputform" onChange={handleChange} placeholder='category' name="categoryInput" type="text"></input>
             <input className="inputform" onChange={handleChange} placeholder='vendor' name="vendorInput" type="text"></input><br/>
-            <button className="deposit" name="deposit" onClick={()=>addTransaction(constants.signConstants.PLUS)}>Deposit</button>
-      <button className="withdraw" name="withdraw" onClick={()=>addTransaction(constants.signConstants.MINUS)}>Withdraw</button>
+            <button className="deposit" name="deposit" onClick={()=> addTransaction(constants.signConstants.PLUS)}>Deposit</button>
+      <button className="withdraw" name="withdraw" onClick={()=> addTransaction(constants.signConstants.MINUS)}>Withdraw</button>
         </div>
     </div>
   )
