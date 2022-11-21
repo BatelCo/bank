@@ -8,7 +8,8 @@ export default function TransactionForm(props) {
 
     const handleChange = e => {
         let newTransactionInputs={...transactionInputs}
-        newTransactionInputs[e.target.name] = e.target.value
+        let inputToHandle = e.target
+        newTransactionInputs[inputToHandle.name] = inputToHandle.value
         setTransactionInputs(newTransactionInputs)
     }
 
@@ -17,7 +18,6 @@ export default function TransactionForm(props) {
                                     category: transactionInputs.categoryInput,
                                     vendor: transactionInputs.vendorInput}
         await BankApi().insertTransaction(transactionInputData)
-        console.log(transactionInputData.amount)
         props.updateBalance(transactionInputData.amount)
     }
 
@@ -39,11 +39,11 @@ export default function TransactionForm(props) {
 
     return (
     <div>
-        <div className="title">Insert Transaction:</div>
         <div className="transaction-form">
-            <input className="inputform" min='0' onChange={handleChange} placeholder='amount' name="amountInput" type="number"></input>
-            <input className="inputform" onChange={handleChange} placeholder='category' name="categoryInput" type="text"></input>
-            <input className="inputform" onChange={handleChange} placeholder='vendor' name="vendorInput" type="text"></input><br/>
+            <div className="title">Insert Transaction:</div>
+            <input className="input-form" min='0' onChange={handleChange} placeholder='amount' name="amountInput" type="number"></input>
+            <input className="input-form" onChange={handleChange} placeholder='category' name="categoryInput" type="text"></input>
+            <input className="input-form" onChange={handleChange} placeholder='vendor' name="vendorInput" type="text"></input><br/>
             <button className="deposit" name="deposit" onClick={()=> addTransaction(constants.signConstants.PLUS)}>Deposit</button>
       <button className="withdraw" name="withdraw" onClick={()=> addTransaction(constants.signConstants.MINUS)}>Withdraw</button>
         </div>
