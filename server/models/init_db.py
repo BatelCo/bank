@@ -1,21 +1,26 @@
 import pymysql
 
-DB_NAME = "bank_app"
+DB_NAME = '''bank_app'''
 
-CREATE_TRANSACTIONS_TABLE = '''CREATE TABLE transactions
+CREATE_TRANSACTIONS_TABLE = ''' CREATE TABLE transactions
                                            (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                                            amount FLOAT,
                                            category NVARCHAR(30),
                                            vendor NVARCHAR(30));
                             '''
 
-CREATE_BALANCE_TABLE = '''CREATE TABLE balance
+INIT_BALANCE_TABLE = ''' CREATE TABLE balance
                         (amount FLOAT);
                        '''
 
 INIT_BALANCE_VALUE = ''' INSERT INTO balance
                          (amount) VALUES (0);
                      '''
+
+UPDATE_BALANCE_TO_ZERO = '''
+                        UPDATE balance 
+                        SET balance = 8;
+                        '''
                 
 # create DB
 try:
@@ -44,7 +49,7 @@ try:
 
     initial_connection.cursor().execute(INIT_BALANCE_VALUE)
     initial_connection.commit()
-    print("table created successfully")
+    print("successfully DONE")
 except Exception: 
     print(Exception.args[0])
     print("tables already exists!")
