@@ -5,7 +5,7 @@ import Transactions from "./components/Transactions/Transactions"
 import Operations from "./components/Operations/Operations"
 import Breakdown from "./components/Breakdown/Breakdown"
 import Balance from "./components/Balance/Balance"
-import { BankApi } from "./data/BankApi"
+import { BankApi } from "./api/BankApi"
 
 function App() {
 	const [balance, setBalance] = useState(0)
@@ -29,7 +29,7 @@ function App() {
 
 	const getHeaderLinks = () => {
 		return (
-			<div id="main-links">
+			<div className="main-links">
 				<Link to="/">Transactions</Link>
 				<Link to="/operations">Operations</Link>
 				<Link to="/breakdown">Breakdown</Link>
@@ -61,7 +61,7 @@ function App() {
 			<div className="app">
 					{getHeaderLinks()}
 					<Balance balance={balance} />				
-				<div id="bank-interface">{getAppRoutes()}</div>
+				<div>{getAppRoutes()}</div>
 			</div>
 		</Router>
 	)
