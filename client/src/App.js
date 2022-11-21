@@ -2,26 +2,31 @@ import "./App.css"
 import React, {useState, useEffect} from "react"
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import Transactions from "./components/Transactions/Transactions"
-import Breakdown from "./components/Breakdown/Breakdown"
-import Header from "./components/Header/Header"
-import Balance from "./components/Balance/Balance"
-import NavBar from "./components/NavBar/NavBar"
-
-import axios from 'axios';
 import Operations from "./components/Operations/Operations"
+import Breakdown from "./components/Breakdown/Breakdown"
+import Balance from "./components/Balance/Balance"
+import Header from "./components/Header/Header"
+import NavBar from "./components/NavBar/NavBar"
+import constants from "./constants"
+import { BankApi } from "./data/BankApi"
 
 function App() {
 	const [balance, setBalance] = useState(0)
 
+	useEffect(() => {
+		getBalance() 
+	},[])
 
-	const updateBalance = (delta, operation)=>{
-		let newBalance;
-		if(operation == "+"){
-		    newBalance = balance + parseFloat(delta)
-		}
-		else{
-		    newBalance = balance - parseFloat(delta)
-		}
+	const getBalance = async ()=>{
+		const balanceRes = await BankApi().getBalance()
+		const newBalance = balanceRes.data.balance[0].amount
+		setBalance(newBalance)
+	}
+
+	const updateBalance = async (valueToUpdate)=>{
+		await BankApi().updateBalance(valueToUpdate)
+		const balanceRes = await BankApi().getBalance()
+		const newBalance = balanceRes.data.balance[0].amount
 		setBalance(newBalance)
 	}
 
@@ -40,11 +45,11 @@ function App() {
 			<div className="routs-container">
 				<Route
 					exact path="/"
-					render={() => <Transactions/>}
+					render={() => <Transactions updateBalance={updateBalance} />}
 				/>
 				<Route
 					exact path="/operations"
-					render={() => <Operations/>}
+					render={() => <Operations updateBalance={updateBalance}/>}
 				/>
 				<Route
 					exact path="/breakdown"
@@ -60,7 +65,7 @@ function App() {
 				{/* <div className="header"> */}
 					{getHeaderLinks()}
 					{/* <NavBar/> */}
-					<Balance balance={balance}/>
+					<Balance balance={balance} />
 				{/* </div> */}
 				
 				<div id="bank-interface">{getAppRoutes()}</div>

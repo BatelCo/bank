@@ -2,6 +2,21 @@ import pymysql
 
 DB_NAME = "bank_app"
 
+CREATE_TRANSACTIONS_TABLE = '''CREATE TABLE transactions
+                                           (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                           amount FLOAT,
+                                           category NVARCHAR(30),
+                                           vendor NVARCHAR(30));
+                            '''
+
+CREATE_BALANCE_TABLE = '''CREATE TABLE balance
+                        (amount FLOAT);
+                       '''
+
+INIT_BALANCE_VALUE = ''' INSERT INTO balance
+                         (amount) VALUES (0);
+                     '''
+                
 # create DB
 try:
     initial_connection = pymysql.connect(
@@ -27,11 +42,7 @@ try:
 )
     print("creating value table...")
 
-    initial_connection.cursor().execute('''CREATE TABLE transactions
-                                           (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                                           amount FLOAT,
-                                           category NVARCHAR(30),
-                                           vendor NVARCHAR(30));''')
+    initial_connection.cursor().execute(INIT_BALANCE_VALUE)
     initial_connection.commit()
     print("table created successfully")
 except Exception: 

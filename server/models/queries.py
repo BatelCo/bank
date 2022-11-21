@@ -17,4 +17,14 @@ breakdown_by_category = """
                         SELECT transactions.category , SUM(transactions.amount) AS total_amount
                         From transactions
                         GROUP BY transactions.category;
-                        """    
+                        """
+
+update_balance = """
+                UPDATE balance 
+                SET amount = '%s';
+                """    
+
+get_balance = """
+                SELECT amount
+                FROM balance;
+                """

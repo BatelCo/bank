@@ -10,19 +10,15 @@ export default function TransactionForm(props) {
     const handleChange = e => {
         let newTransactionInputs={...transactionInputs}
         newTransactionInputs[e.target.name] = e.target.value
-        console.log(newTransactionInputs)
         setTransactionInputs(newTransactionInputs)
     }
 
     async function insertTransaction(sign){
-        let transactionInputData = {amount: (sign == "-") ? -transactionInputs.amountInput : transactionInputs.amountInput,
-        category: transactionInputs.categoryInput,
-        vendor: transactionInputs.vendorInput}
+        let transactionInputData = {amount: (sign == constants.signConstants.MINUS) ? -transactionInputs.amountInput : transactionInputs.amountInput,
+                                    category: transactionInputs.categoryInput,
+                                    vendor: transactionInputs.vendorInput}
         await BankApi().insertTransaction(transactionInputData)
-    }
-
-    const updateBalance=()=>{
-        console.log(updateBalance)        
+        props.updateBalance(transactionInputData.amount)
     }
 
     const validInput=()=>{
@@ -34,9 +30,7 @@ export default function TransactionForm(props) {
 
     const addTransaction= (sign) =>{
         if (validInput()){
-            console.log("addTransaction")
             insertTransaction(sign)
-            updateBalance()
         }
         else{
             alert("Invalid input")

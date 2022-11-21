@@ -6,13 +6,25 @@ export function BankApi(){
         return axios.get(constants.routersConstants.BREAKDOWN_API)
     }
     function getTransactions(){
-      return axios.get(constants.routersConstants.TRANSACTIONS_API)
+        return axios.get(constants.routersConstants.TRANSACTIONS_API)
     }
     function deleteTransaction(id){
-        axios.delete(`${constants.routersConstants.TRANSACTIONS_API}/${id}`)
+        return axios.delete(`${constants.routersConstants.TRANSACTIONS_API}/${id}`)
     } 
     function insertTransaction(transactionInputData){
-        axios.post(constants.routersConstants.TRANSACTIONS_API, transactionInputData);
+        return axios.post(constants.routersConstants.TRANSACTIONS_API, transactionInputData);
     }
-    return {getBreakdown, getTransactions, deleteTransaction, insertTransaction}
+    function updateBalance(valueToUpdate){
+        return axios.post(constants.routersConstants.BALANCE_API, valueToUpdate);
+    }
+    function getBalance(){
+        return axios.get(constants.routersConstants.BALANCE_API);
+    }
+
+    return {getBreakdown,
+            getTransactions,
+            deleteTransaction,
+            insertTransaction,
+            updateBalance,
+            getBalance}
 }
