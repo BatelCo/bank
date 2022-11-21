@@ -115,7 +115,10 @@ class DataManager():
         except pymysql.Error as e:
             raise e
 
-    def add_transaction(self, amount, category, vendor):
+    def add_transaction(self, transaction_data):
+        amount = transaction_data["amount"]
+        category = transaction_data["category"]
+        vendor = transaction_data["vendor"]
         try:
                 connection = pymysql.connect(
                 host='localhost',
@@ -131,6 +134,9 @@ class DataManager():
             with connection.cursor() as cursor:
                 cursor.execute(queries.add_transaction, (amount, category, vendor))
                 connection.commit()
+                new_id = cursor.lastrowid
+                transaction_data["id"] = new_id
+                return transaction_data
         except pymysql.Error as e:
             raise e
 
