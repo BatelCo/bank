@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react'
 import Transaction from '../Transaction/Transaction';
-import { BankApi } from '../../data/BankApi';
+import { BankApi } from '../../api/BankApi';
 
 export default function Transactions(props) {
 	const [transactions, setTransactions] = useState([])

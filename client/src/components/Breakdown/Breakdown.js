@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react'
 import BreakdownItem from '../BreakdownItem/BreakdownItem';
-import { BankApi } from '../../data/BankApi';
+import { BankApi } from '../../api/BankApi';
 
 
 export default function Breakdown() {

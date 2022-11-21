@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import "./TransactionForm.css"
 import constants from '../../constants';
-import { BankApi } from '../../data/BankApi';
+import { BankApi } from '../../api/BankApi';
 
 export default function TransactionForm(props) {
     const [transactionInputs, setTransactionInputs] = useState({amountInput:"", categoryInput:"", vendorInput:""})
