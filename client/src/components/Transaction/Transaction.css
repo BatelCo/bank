@@ -33,14 +33,6 @@
     background: transparent;
   }
 
-  .transaction{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-block-start: 1em;
-    gap: 2vw;
-  }
-
   .category{
     list-style-type: none;
     margin: 0;
@@ -61,4 +53,25 @@
     color: rgb(0, 0, 0);
     text-align: center;
     font:1.2em Arial, sans-serif;
+
+  }
+  .transaction{
+    background: #4dc3fa;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 40px;
+    text-align: center;
+    box-shadow: 0 6px 20px -5px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    margin:1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2vw;
+    text-align: center;
+    justify-items: center;
+    padding: 8px;
+    width:600px;
   }

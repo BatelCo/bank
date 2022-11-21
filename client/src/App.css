@@ -1,8 +1,9 @@
 #main-links > a{
-    margin: 10px;
+    margin: 20px;
     color: #000596;
     text-shadow: 1px 0 #ecf0f1;
     font-weight:bold;
+    font-size: 2rem;
 }
 
 *{
@@ -18,3 +19,4 @@ a{
 #balance{
     float:right;
 }
+

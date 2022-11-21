@@ -6,7 +6,7 @@
     justify-content: left;
     position:absolute; 
     top: -0.5em;;
-    right:-8em; 
+    right:-7em; 
     list-style-type: none;
     color: rgb(0, 0, 0);
     font:1.2em Arial, sans-serif;
@@ -21,7 +21,7 @@
     align-items: left;
     justify-content: left;
     position:absolute;
-    top: 1em;;
+    top: 1.8em;;
     right:11em;
 }
 
