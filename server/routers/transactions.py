@@ -47,7 +47,6 @@ async def update_balance(request: Request):
         current_balance = db_manager.get_balance_from_db()
         db_manager.update_balance(current_balance + value_to_update)
         updated_balance = db_manager.get_balance_from_db()
-        print("&&&&&", updated_balance)
         return JSONResponse({"status": "Success. Balance Updated", "balance":updated_balance},
             status_code = status.HTTP_201_CREATED)
     except Exception as e:
