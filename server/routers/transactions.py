@@ -1,7 +1,7 @@
 from typing import List
-from fastapi import APIRouter, status, Request
+from fastapi import APIRouter, status, Request, HTTPException
 from fastapi.responses import JSONResponse
-from models.db_manager import DataManager
+from models.db_manager import DataManager, ElementNotExistError
 
 router = APIRouter()
 db_manager = DataManager()
@@ -18,10 +18,10 @@ def delete_transaction(id):
     try:
         db_manager.delete_transaction(int(id))
         return {"deleted" : "true"}
-    except db_manager.ElementNotExistError as e:
-        return JSONResponse({"Error": "Transaction does not exist"}, status_code=status.HTTP_404_NOT_FOUND)
-    except Exception as e:
-        return JSONResponse({"Error": e}, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR) 
+    except ElementNotExistError as e:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= str(e))
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=str(e))
 
 @router.post("/transactions", status_code=status.HTTP_201_CREATED)
 async def insert_transaction(request: Request):
@@ -52,3 +52,4 @@ async def update_balance(request: Request):
     except Exception as e:
         return JSONResponse({"Error":e}, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR) 
     
+0

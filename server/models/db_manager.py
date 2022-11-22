@@ -1,6 +1,8 @@
 import models.queries as queries
 import pymysql
 
+class ElementNotExistError(Exception):
+    pass
 
 class DataManager():
     def __init__(self):
@@ -35,7 +37,6 @@ class DataManager():
                 return result
         except pymysql.Error as e:
             raise e
-
 
     def update_balance(self, balance):
         try:
@@ -96,25 +97,6 @@ class DataManager():
         except pymysql.Error as e:
             raise e
 
-    def delete_transaction(self, id):
-        try:
-                connection = pymysql.connect(
-                host='localhost',
-                user='root',
-                password="",
-                db="bank_app",
-                charset="utf8",
-                cursorclass=pymysql.cursors.DictCursor
-                )
-        except pymysql.Error as e:
-            print("Error connecting to MySQL", e)
-        try:
-            with connection.cursor() as cursor:
-                cursor.execute(queries.delete_transaction, [id])
-                connection.commit()
-        except pymysql.Error as e:
-            raise e
-
     def add_transaction(self, transaction_data):
         amount = transaction_data["amount"]
         category = transaction_data["category"]
@@ -140,3 +122,24 @@ class DataManager():
         except pymysql.Error as e:
             raise e
 
+    def delete_transaction(self, id):
+        try:
+                connection = pymysql.connect(
+                host='localhost',
+                user='root',
+                password="",
+                db="bank_app",
+                charset="utf8",
+                cursorclass=pymysql.cursors.DictCursor
+                )
+        except pymysql.Error as e:
+            print("Error connecting to MySQL", e)
+        try:
+            with connection.cursor() as cursor:
+                result = cursor.execute(queries.delete_transaction, [id])
+                connection.commit()
+                if not result:
+                    print("************",result)
+                    raise ElementNotExistError("id not exist in DB")
+        except pymysql.Error as e:
+            raise e
