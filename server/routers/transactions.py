@@ -20,7 +20,6 @@ def delete_transaction(id):
         return {"deleted" : "true"}
     except db_manager.ElementNotExistError as e:
         return JSONResponse({"Error": "Transaction does not exist"}, status_code=status.HTTP_404_NOT_FOUND)
-
     except Exception as e:
         return JSONResponse({"Error": e}, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR) 
 
@@ -45,9 +44,10 @@ def get_balance():
 async def update_balance(request: Request):
     try:
         value_to_update = await request.json()
-        current_balance = db_manager.get_balance_from_db()[0]["amount"]
-        updated_balance = current_balance + value_to_update  
-        db_manager.update_balance(updated_balance)
+        current_balance = db_manager.get_balance_from_db()
+        db_manager.update_balance(current_balance + value_to_update)
+        updated_balance = db_manager.get_balance_from_db()
+        print("&&&&&", updated_balance)
         return JSONResponse({"status": "Success. Balance Updated", "balance":updated_balance},
             status_code = status.HTTP_201_CREATED)
     except Exception as e:

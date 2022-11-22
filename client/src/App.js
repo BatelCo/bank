@@ -16,15 +16,13 @@ function App() {
 
 	const getBalance = async ()=>{
 		const balanceRes = await BankApi().getBalance()
-		const newBalance = balanceRes.data.balance[0].amount
+		const newBalance = balanceRes.data.balance
 		setBalance(newBalance)
 	}
 
 	const updateBalance = async (valueToUpdate)=>{
 		await BankApi().updateBalance(valueToUpdate)
-		const balanceRes = await BankApi().getBalance()
-		const newBalance = balanceRes.data.balance[0].amount
-		setBalance(newBalance)
+		getBalance()
 	}
 
 	const getHeaderLinks = () => {

@@ -31,7 +31,7 @@ class DataManager():
         try:
             with connection.cursor() as cursor:
                 cursor.execute(queries.get_balance)
-                result = cursor.fetchall()
+                result = cursor.fetchone()["amount"]
                 return result
         except pymysql.Error as e:
             raise e
