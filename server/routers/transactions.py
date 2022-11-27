@@ -12,17 +12,16 @@ def get_transactions():
         return JSONResponse({"transactions" : (db_manager.get_transactions_from_db())})
     except Exception as e:
         return JSONResponse({"Error": str(e)}, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR) 
-    
-@router.delete("/transactions/{id}", status_code=status.HTTP_202_ACCEPTED)
+
+@router.delete("/transactions/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_transaction(id):
     try:
         db_manager.delete_transaction(int(id))
-        return {"deleted" : "true"}
     except ElementNotExistError as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= str(e))
     except ValueError as e:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=str(e))
-
+    
 @router.post("/transactions", status_code=status.HTTP_201_CREATED)
 async def insert_transaction(request: Request):
     try:
