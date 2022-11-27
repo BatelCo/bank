@@ -139,7 +139,6 @@ class DataManager():
                 result = cursor.execute(queries.delete_transaction, [id])
                 connection.commit()
                 if not result:
-                    print("************",result)
                     raise ElementNotExistError("id not exist in DB")
         except pymysql.Error as e:
             raise e
